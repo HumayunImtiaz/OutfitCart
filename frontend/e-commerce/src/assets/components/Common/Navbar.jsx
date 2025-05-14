@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {HiOutlineUser, HiOutlineShoppingBag, HiBars3BottomRight} from 'react-icons/hi2'
 import SearchBar from './SearchBar'
+import CartDrawer from '../Layout/CartDrawer'
+
 const Navbar = () => {
+
+     const[drawerOpen, setdrawerOpen]=useState(false)
+    
+      const ToggleCartDrawer=()=>{
+        setdrawerOpen(!drawerOpen)
+      }
+
   return (
     <>
     <nav className='container max-auto flex items-center justify-between py-6 px-6'>
@@ -44,7 +53,7 @@ const Navbar = () => {
             <Link to="/profile" className='hover:text-black'>
             <HiOutlineUser className='h-6 w-6 text-gray-700' />
             </Link>
-            <button className='relative hover:text-gray-700 '>
+            <button onClick={ToggleCartDrawer} className='relative hover:text-gray-700 '>
                 <HiOutlineShoppingBag className='h-6 w-6 text-gray-700'/>
                 <span className='absolute -top-1 bg-[#ea2e0e] text-white text-xs rounded-full px-2 py-0.5'>
                     4
@@ -52,7 +61,9 @@ const Navbar = () => {
 
             </button>
             {/* search Icons */}
+            <div className='overflow-hidden'>
             <SearchBar/>
+            </div>
             {/* for small screen and hide in larg screen */}
             <button className='md:hidden'> 
                 <HiBars3BottomRight className='h-6 w-6 text-gray-700'/>
@@ -61,6 +72,7 @@ const Navbar = () => {
 
         </div>
     </nav>
+    <CartDrawer drawerOpen={drawerOpen} ToggleCartDrawer={ToggleCartDrawer}/>
     </>
   )
 }
