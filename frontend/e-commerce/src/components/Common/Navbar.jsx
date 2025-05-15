@@ -82,6 +82,8 @@ const Navbar = () => {
         </div>
       </nav>
       <CartDrawer drawerOpen={drawerOpen} ToggleCartDrawer={ToggleCartDrawer} />
+
+      {/* small screen navbar open */}
       <div
         className={`fixed top-0 left-0 w-[20rem]  h-full bg-white shadow-lg tranform 
     transition-transform duration-300 flex flex-col  z-50 ${
@@ -94,40 +96,38 @@ const Navbar = () => {
           </button>
         </div>
         <div className="p-4">
-            <h2 className="text-xl font-semibold mb-4">Menu</h2>
-            <nav className="space-y-4">
-                <Link 
-                to="#"
-                onClick={ToggleNav}
-                className="block text-gray-600 hover:text-black"
-                >
-                    Men
-                </Link>
-                <Link 
-                to="#"
-                onClick={ToggleNav}
-                className="block text-gray-600 hover:text-black"
-                >
-                    Women
-                </Link>
-                <Link 
-                to="#"
-                onClick={ToggleNav}
-                className="block text-gray-600 hover:text-black"
-                >
-                    TopWear
-                </Link>
-                <Link 
-                to="#"
-                onClick={ToggleNav}
-                className="block text-gray-600 hover:text-black"
-                >
-                    BottomWaer
-                </Link>
-            </nav>
+          <h2 className="text-xl font-semibold mb-4">Menu</h2>
+          <nav className="space-y-4">
+            <Link
+              to="#"
+              onClick={ToggleNav}
+              className="block text-gray-600 hover:text-black"
+            >
+              Men
+            </Link>
+            <Link
+              to="#"
+              onClick={ToggleNav}
+              className="block text-gray-600 hover:text-black"
+            >
+              Women
+            </Link>
+            <Link
+              to="#"
+              onClick={ToggleNav}
+              className="block text-gray-600 hover:text-black"
+            >
+              TopWear
+            </Link>
+            <Link
+              to="#"
+              onClick={ToggleNav}
+              className="block text-gray-600 hover:text-black"
+            >
+              BottomWaer
+            </Link>
+          </nav>
         </div>
-        
-        
       </div>
     </>
   );
