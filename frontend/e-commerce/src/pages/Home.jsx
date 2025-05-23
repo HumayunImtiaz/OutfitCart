@@ -4,6 +4,7 @@ import  GenderCollectionSection  from '../components/Products/GenderCollectionSe
 import NewArrive from '../components/Products/NewArrive'
 import ProductDetails from '../components/Products/ProductDetails'
 import ProductGrid from '../components/Products/ProductGrid'
+import FeatureCollection from '../components/Products/FeatureCollection'
 
 //  similar product data for ProductsGrid.jsx
 
@@ -79,6 +80,9 @@ function Home() {
           </h2>
           <ProductGrid products={similarProducts}/>
         </div>
+
+        {/* Feature Collection component */}
+        <FeatureCollection/>
     </div>
   )
 }
