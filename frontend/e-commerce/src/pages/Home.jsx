@@ -5,6 +5,7 @@ import NewArrive from '../components/Products/NewArrive'
 import ProductDetails from '../components/Products/ProductDetails'
 import ProductGrid from '../components/Products/ProductGrid'
 import FeatureCollection from '../components/Products/FeatureCollection'
+import FeatureSection from '../components/Products/FeatureSection'
 
 //  similar product data for ProductsGrid.jsx
 
@@ -83,6 +84,10 @@ function Home() {
 
         {/* Feature Collection component */}
         <FeatureCollection/>
+
+        {/* Feature Section Component */}
+        <FeatureSection/>
+
     </div>
   )
 }
