@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function FilterSidevar() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const  navigate= useNavigate();
   //x.com/?a=1&b=2
   const [priceRange, setPriceRange] = useState([0, 100]);
 
@@ -73,24 +74,43 @@ function FilterSidevar() {
   const handleFilterChange = (e) => {
     const { name, value, checked, type } = e.target;
     console.log({ name, value, checked, type } )
-  
+  // Purane filters ka ek copy bana liya. Direct mutate nahi kiya (React mein immutable data ka concept hota hai).
+  // agr ham direct filters sy krty tu React ko pta nhi chalta islye ... lga gr array ko shift kia hai 
     const newFilters = { ...filters };
+    // Check kar rahe hain: agar input type checkbox hai...
     if(type==="checkbox"){
+    //Agar checkbox tick hai, to uski value ko filter list mein add karo.
         if(checked){
             newFilters[name]=[...newFilters[name] || [], value]  //["XS" , "S"]
         }
+        //Agar checkbox uncheck ho gaya, to uski value filter list se hatado.
         else{
             newFilters[name]=newFilters[name].filter((items)=>items!== value)
         }
     }
+    //Jahan checkbox nahi hai waha simple value ko utha kr object mai add krdo 
     else{
         newFilters[name]=value;
     }
     setFilter(newFilters)
-    console.log(newFilters)
-
-    
+    //Navigation URL Update ky lye
+    UpdateURLParams(newFilters)
   };
+  const UpdateURLParams=(newFilters)=>{
+    const params= new URLSearchParams();
+    //{ catagory: "Top Wear", size : ["XS", "S"]}
+    Object.keys(newFilters).forEach((key)=>{
+        if(Array.isArray(newFilters[key]) && newFilters[key].length>0)
+        {
+            params.append(key, newFilters[key].join(","))
+        }
+        else if(newFilters[key]){
+            params.append(key, newFilters[key]);
+        }
+    })
+    setSearchParams(params)
+    navigate(`?${params.toString()}`)   //?category=Bottom+Weare$size=XS%2CS
+  }
 
   return (
     <div className="p-4 ">
@@ -99,16 +119,17 @@ function FilterSidevar() {
       {/* Category Filter */}
       <div className="mb-6">
         <label className="block text-gray-600 font-medium mb-2">Category</label>
-        {catagories.map((catergory) => (
-          <div key={catergory} className="flex items-center mb-1">
+        {catagories.map((catagory) => (
+          <div key={catagory} className="flex items-center mb-1">
             <input
               type="radio"
-              name="category"
-              value={catergory}
+              name="catagory"
+              value={catagory}
               onChange={handleFilterChange}
+              checked={filters.catagory===catagory}
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
-            <span className="text-gray-700">{catergory}</span>
+            <span className="text-gray-700">{catagory}</span>
           </div>
         ))}
       </div>
@@ -121,9 +142,9 @@ function FilterSidevar() {
             <input
               type="radio"
               name="gender"
-              
               value={gender}
               onChange={handleFilterChange}
+              checked={filters.gender===gender}
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
             <span className="text-gray-700">{gender}</span>
@@ -141,7 +162,7 @@ function FilterSidevar() {
               name="color"
               value={color}
               onClick={handleFilterChange}
-              className="w-8 h-8 rounded-full border border-gray-600 cursor-pointer transition hover:scale-105"
+              className= {`w-8 h-8 rounded-full border border-gray-600 cursor-pointer transition hover:scale-105 ${filters.color===color? "ring-2 ring-blue-500 " : ""}`}
               style={{ backgroundColor: color.toLowerCase() }}
             ></button>
           ))}
@@ -158,6 +179,7 @@ function FilterSidevar() {
               name="size"
               value={size}
               onChange={handleFilterChange}
+              checked={filters.size.includes(size)}
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border border-gray-300"
             />
             <span className="text-gray-700">{size}</span>
@@ -174,9 +196,10 @@ function FilterSidevar() {
           <div key={material} className="flex items-center mb-1">
             <input
               type="checkbox"
-              name="size"
+              name="material"
               value={material}
               onChange={handleFilterChange}
+              checked={filters.material.includes(material)}
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border border-gray-300"
             />
             <span className="text-gray-700">{material}</span>
@@ -196,6 +219,7 @@ function FilterSidevar() {
               name="brand"
               value={brand}
               onChange={handleFilterChange}
+              checked={filters.brand.includes(brand)}
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border border-gray-300"
             />
             <span className="text-gray-700">{brand}</span>
