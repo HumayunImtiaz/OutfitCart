@@ -103,8 +103,7 @@ useEffect (()=>{
 
         {/* Filter Sidebar */}
         <div ref={sidebarRef}
-        className={`${isSidebarOpen ? "translate-x-0" :"-translate-x-full"}  fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-auto transition-transform duration-300 
-                   lg:static lg:translate-x-0`}
+        className={`${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} fixed inset-y-0 z-50 left-0 w-64 bg-white overflow-auto transition-transform duration-300 lg:static lg:translate-x-0 no-scrollbar`}
         >
             <FilterSidevar/>
         </div>

@@ -5,7 +5,7 @@ function FilterSidevar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const  navigate= useNavigate();
   //x.com/?a=1&b=2
-  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [PriceRange, setPriceRange] = useState([0, 100]);
 
   const [filters, setFilter] = useState({
     catagory: "",
@@ -96,6 +96,7 @@ function FilterSidevar() {
     //Navigation URL Update ky lye
     UpdateURLParams(newFilters)
   };
+
   const UpdateURLParams=(newFilters)=>{
     const params= new URLSearchParams();
     //{ catagory: "Top Wear", size : ["XS", "S"]}
@@ -111,6 +112,16 @@ function FilterSidevar() {
     setSearchParams(params)
     navigate(`?${params.toString()}`)   //?category=Bottom+Weare$size=XS%2CS
   }
+
+  //price range
+  const handlePriceChange = (e) => {
+  const newPrice = e.target.value;
+  setPriceRange([0, newPrice]);
+  const newFilter = { ...filters, minPrice: 0, maxPrice: newPrice };
+  setFilter(newFilter);
+  UpdateURLParams(newFilter);
+};
+
 
   return (
     <div className="p-4 ">
@@ -187,7 +198,7 @@ function FilterSidevar() {
         ))}
       </div>
 
-      {/* Materal Filter */}
+      {/* Material Filter */}
       <div className="mb-6">
         <label className="block text-gray-600  font-medium  mb-2 ">
           Material
@@ -238,11 +249,14 @@ function FilterSidevar() {
           name="PriceRange"
           min={0}
           max={100}
-          className="w-full h-2 bg-blue-500 roundd-lg appearance-none cursor-pointer"
+          value={PriceRange[1]}
+          onChange={handlePriceChange}
+          className="w-full h-2 bg-blue-500 rounded-lg  appearance-none cursor-pointer"
+
         />
         <div className="flex justify-between text-gray-600 mt-2">
           <span>$0</span>
-          <span>${priceRange[1]}</span>
+          <span>${PriceRange[1]}</span>
         </div>
       </div>
     </div>
