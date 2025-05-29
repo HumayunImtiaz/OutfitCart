@@ -85,6 +85,24 @@ function OrderConfirmation() {
                     }
 
                     </div>
+                    {/* Payment and Delivery Info */}
+                    <div className="grid grid-cols-2 gap-8">
+                        {/* Payment Info */}
+                        <div>
+                        <h4 className="text-lg font-semibold mb-2 ">Payment</h4>
+                        <p className="text-gray-600 ">Paypal</p>
+                        </div>
+
+                        {/* Delivery Info */}
+                        <div>
+                            <h4 className="text-lg font-semibold mb-2">Delivery</h4>
+                            <p className="text-gray-600">{checkout.shippingAddress.address}</p>
+                            <p className="text-gray-600">
+                                {checkout.shippingAddress.city}, {" "}
+                                {checkout.shippingAddress.country}
+                                </p>
+                        </div>
+                    </div>
 
                 </div>
             )
