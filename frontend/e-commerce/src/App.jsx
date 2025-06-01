@@ -14,6 +14,7 @@ import OrderConfirmation from './pages/OrderConfirmation'
 import OrderDetailsPage from './pages/OrderDetailsPage'
 import MyOrderPage from './pages/MyOrderPage'
 import AdminLayout from './components/Admin/AdminLayout'
+import AdminHomePage from './pages/AdminHomePage'
 function App() {
   return (
     <BrowserRouter>
@@ -35,6 +36,7 @@ function App() {
 
       {/* Admin Route */}
       <Route path="/admin" element={<AdminLayout/>}>
+      <Route index element={<AdminHomePage/>}/>
       </Route>
     </Routes>
     </BrowserRouter>
